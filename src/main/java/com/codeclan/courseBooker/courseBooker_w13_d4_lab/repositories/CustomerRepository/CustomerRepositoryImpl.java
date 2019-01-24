@@ -4,6 +4,7 @@ import com.codeclan.courseBooker.courseBooker_w13_d4_lab.models.Customer;
 import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
+import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
@@ -45,7 +46,7 @@ public class CustomerRepositoryImpl implements CustomerRepositoryCustom {
         try {
             Criteria cr = session.createCriteria(Customer.class);
             cr.createAlias("bookings", "bookingsAlias");
-            cr.add(Restrictions.eq("town", town));
+            cr.add(Restrictions.ilike("town", town, MatchMode.EXACT));
             cr.add(Restrictions.eq("bookingsAlias.course.Id", Id));
             results = cr.list();
         }
@@ -66,7 +67,7 @@ public class CustomerRepositoryImpl implements CustomerRepositoryCustom {
         try {
             Criteria cr = session.createCriteria(Customer.class);
             cr.createAlias("bookings", "bookingsAlias");
-            cr.add(Restrictions.eq("town", town));
+            cr.add(Restrictions.ilike("town", town, MatchMode.EXACT));
             cr.add(Restrictions.gt("age", age));
             cr.add(Restrictions.eq("bookingsAlias.course.Id", Id));
             results = cr.list();
