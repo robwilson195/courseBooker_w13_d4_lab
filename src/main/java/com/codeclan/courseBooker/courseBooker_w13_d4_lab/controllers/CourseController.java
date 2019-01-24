@@ -23,4 +23,9 @@ public class CourseController {
         return courseRepository.findCoursesByRating(rating);
     }
 
+    @GetMapping("/bookings/ofcustomer/{Id}")
+    public List<Course> findCoursesByCustomerId(@PathVariable Long Id) {
+        return courseRepository.findCoursesByCustomerId(Id);
+    }
+
 }
